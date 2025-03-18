@@ -162,8 +162,6 @@ async def async_main():
                 await asyncio.sleep(0.25)
         except KeyboardInterrupt:
             break
-        except asyncio.CancelledError:
-            break
 
     # Cancel the save task before exiting
     save_task.cancel()
@@ -177,7 +175,10 @@ async def async_main():
         print(line)
 
 def main():
-    asyncio.run(async_main())
+    try:
+        asyncio.run(async_main())
+    except KeyboardInterrupt:
+        pass
 
 if __name__ == "__main__":
     main()
